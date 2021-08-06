@@ -1,12 +1,13 @@
 main {
   width: 100%;
+  overflow: auto;
   display: flex;
   justify-content: center;
   align-items: center;
 
     form {
       border: 2px solid #836FFF;
-      width: 60rem;
+      width: 80%;
       padding: 1rem;
 
       mat-card-content {

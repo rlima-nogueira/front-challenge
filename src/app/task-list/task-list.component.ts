@@ -1,6 +1,6 @@
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, RequiredValidator, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Task } from './task-list';
 import { TaskListService } from './task-list.service';
@@ -17,27 +17,28 @@ export class TaskListComponent implements OnInit {
     task: new FormControl(''),
   });
   public taskList: Task;
+  public isInputInvalid: boolean = false;
+  public isInputInvalidCharacter: boolean = false;
 
   public icones = {
     faTrashAlt,
   };
-
-  private format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
   constructor(
     private formBuilder: FormBuilder,
     private service: TaskListService,
   ) { }
 
-  public ngOnInit(): void {
+  public ngOnInit(): void{
     this.loadForm();
     this.handleTaskSearch();
+
   }
 
   private loadForm(): void {
     this.tasks = this.formBuilder.group({
       checkBoxTask: new FormControl(''),
-      task: new FormControl(''),
+      task: new FormControl(null, Validators.compose([Validators.required])),
     });
   }
 
@@ -51,20 +52,30 @@ export class TaskListComponent implements OnInit {
   }
 
   public async handleTaskSave(): Promise<void> {
-    if (this.format.test(this.tasks.value.task)) {
-      alert('Por favor, Remova os caracteres especiais.');
+    const format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    this.isInputInvalidCharacter = format.test(this.tasks.value.task);
+
+    if (this.isValid()) {
       return;
+    } else {
+      const task: Task = {
+        item: this.tasks.value.task,
+        done: false
+      };
+
+      const sizeObject = Object.keys(this.taskList).length;
+
+      if (sizeObject === 100) {
+        alert('Você atingiu o limite de 100 tarefas cadastradas.');
+        return;
+      }
+
+      (await this.service.saveTask(task)).subscribe(() => {
+        this.tasks.controls.task.reset();
+        this.handleTaskSearch();
+      });
     }
 
-    const task: Task = {
-      item: this.tasks.value.task,
-      done: false
-    };
-
-    (await this.service.saveTask(task)).subscribe(() => {
-      this.tasks.controls.task.reset();
-      this.handleTaskSearch();
-    });
   }
 
   public async handleTaskDelete(id: number): Promise<void> {
@@ -82,6 +93,17 @@ export class TaskListComponent implements OnInit {
     (await this.service.updateTask(task)).subscribe(() => {
       this.handleTaskSearch();
     });
+  }
+
+  public isValid(): boolean {
+    if (this.isInputInvalidCharacter) {
+      return true;
+    }
+    if (this.tasks.value.task === '' || this.tasks.value.task === null) {
+      this.isInputInvalid = true;
+      return true;
+    }
+    return false;
   }
 
 }

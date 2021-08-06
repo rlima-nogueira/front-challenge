@@ -9,6 +9,12 @@
                   class="input" formControlName = "task"
                   name="task" placeholder="Task"
                   required>
+                  <mat-error *ngIf="isInputInvalid">
+                    Verifique o texto inserido no campo tarefa!
+                  </mat-error>
+                  <mat-error *ngIf="isInputInvalidCharacter">
+                    Remova os caracteres especiais!
+                  </mat-error>
               </mat-form-field>
               <button mat-raised-button color="primary" (click)="handleTaskSave()">Adicionar</button>
             </div>

@@ -23,4 +23,13 @@ export class TaskListService {
     return this.http.post<Array<Task>>(`${this.URL_API}`, task);
   }
 
+  public async updateTask(task: Task): Promise<Observable<Array<Task>>> {
+    return this.http.put<Array<Task>>(`${this.URL_API}/${task.id}`, task);
+  }
+
+
+  public async deleteTask(id: number): Promise<Observable<number>> {
+    return this.http.delete<number>(`${this.URL_API}/${id}`);
+  }
+
 }

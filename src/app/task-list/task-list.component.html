@@ -1,34 +1,33 @@
 <main>
-  <section>
-    <mat-card>
-      <mat-card-title>TaskList</mat-card-title>
-    </mat-card>
 
       <form [formGroup]="tasks">
         <mat-card-content>
           <div class="conteudo">
             <div class="input-button">
               <mat-form-field appearance="fill">
-                <input matInput class="input" formControlName="task" name="task" placeholder="Task" required>
+                <input matInput
+                  class="input" formControlName = "task"
+                  name="task" placeholder="Task"
+                  required>
               </mat-form-field>
-              <button mat-raised-button color="primary" (click)="taskSave()">Adicionar</button>
+              <button mat-raised-button color="primary" (click)="handleTaskSave()">Adicionar</button>
             </div>
             <mat-list-item *ngFor="let task of taskList" >
                 <div class="items-icon">
                   <mat-checkbox
                     [FormControlName] = "checkBoxTask"
                     [checked]="task.done"
-                    (change)="$event ? atualizarTask($event) : task.done"
+                    (change)="$event ? handleTaskUpdate(task.id, $event) : task.done"
                     >
                     {{ task.item }}
                   </mat-checkbox>
-                  <a>
-                    <fa-icon [icon]="icones.faTrash"> </fa-icon>
+                  <a (click)="handleTaskDelete(task.id)">
+                    <fa-icon [icon]="icones.faTrashAlt"> </fa-icon>
                   </a>
                 </div>
               </mat-list-item>
           </div>
         </mat-card-content>
       </form>
-  </section>
+
 </main>

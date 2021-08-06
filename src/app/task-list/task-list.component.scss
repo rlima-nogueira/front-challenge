@@ -5,47 +5,60 @@ main {
   justify-content: center;
   align-items: center;
 
-  section {
-    height: 40rem;
-    width: 50rem;
+    form {
+      border: 2px solid #836FFF;
+      width: 60rem;
+      padding: 1rem;
 
-  }
+      mat-card-content {
 
-  mat-card-content {
-    border: 2px solid #836FFF;
-
-    .conteudo {
-      margin-left: 1rem;
-
-      .input-button {
-        display: flex;
-
-        .input {
-          width: 37rem;
-          border-radius: 5rem;
-          padding: 1rem;
-          outline: none;
-          font-size: 1.5rem;
-        }
-        button {
-          height: 3rem;
-          margin: 1.5rem 0 0 30rem;
-        }
-      }
-
-      .items-icon {
-        display: flex;
-        align-items: center;
-        line-height: 1.8rem;
-
-        a {
+        .conteudo {
           margin-left: 1rem;
-          cursor: pointer;
-        }
 
+          .input-button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            mat-form-field {
+              width: 50rem;
+            }
+
+            input {
+              outline: none;
+              font-size: 1.3rem;
+            }
+
+            button {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+          }
+
+          .items-icon {
+            display: flex;
+            align-items: center;
+            line-height: 2.3rem;
+            font-size: 1.2rem;
+            justify-content: space-between;
+
+            a {
+              margin-right: 1rem;
+              cursor: pointer;
+
+
+              fa-icon {
+                color: red;
+              }
+            }
+
+          }
+        }
       }
     }
-  }
 
 }
+
 

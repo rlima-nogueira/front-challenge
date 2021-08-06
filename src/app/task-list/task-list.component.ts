@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, RequiredValidator, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Task } from './model/task-list';
-import { TaskListService } from './module/task-list.service';
+import { TaskListService } from './service/task-list.service';
 
 @Component({
   selector: 'app-task-list',

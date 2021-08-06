@@ -1,35 +1,40 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { TaskListComponent } from './task-list.component';
 import { TaskListModule } from './module/task-list.module';
-import { TaskListService } from './module/task-list.service';
+import { TaskListService } from './service/task-list.service';
 
 describe('TaskListComponent', () => {
 
   let fixture: ComponentFixture<TaskListComponent> = null;
   let component: TaskListComponent;
+  let service: TaskListService;
   let injector: TestBed;
-  let httpMock: HttpTestingController;
 
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        TaskListModule,
-        TaskListService
+        TaskListModule
       ],
-      declarations: [ TaskListComponent ]
+      declarations: [
+        TaskListComponent,
+      ], providers: [
+        HttpClientTestingModule
+      ],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(TaskListComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+
+    injector = getTestBed();
+    service = TestBed.inject(TaskListService);
   });
 
-  it('should create', () => {
+
+  it('Should create component', () => {
     expect(component).toBeTruthy();
   });
+
 });

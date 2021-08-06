@@ -15,7 +15,13 @@
             </div>
 
             <mat-list-item *ngFor="let task of taskList">
-              <p><mat-checkbox formControlName="checkBoxTask">{{ task.name }}</mat-checkbox></p>
+              <mat-checkbox
+                [FormControlName] = "checkBoxTask"
+                [checked]="task.done"
+                (change)="$event ? atualizarTask($event) : task.done"
+                >
+                {{ task.name }}
+              </mat-checkbox>
             </mat-list-item>
           </div>
         </mat-card-content>

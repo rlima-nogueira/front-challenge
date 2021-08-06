@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-task-list',
@@ -8,7 +9,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class TaskListComponent implements OnInit {
 
-  public tasks: FormGroup;
+  public tasks: FormGroup = new FormGroup({
+    checkBoxTask: new FormArray([]),
+    task: new FormControl(''),
+  });
   public taskList: Array<object>;
 
   constructor(
@@ -21,21 +25,30 @@ export class TaskListComponent implements OnInit {
       {
         "id": 1,
         "name": "Task 1",
+        "done": false
       },
       {
         "id": 2,
         "name": "Task 2",
+        "done": true
       },
     ]
 
     this.tasks = this.formBuilder.group({
-      checkBoxTask: new FormControl([]),
+      checkBoxTask: new FormControl(''),
       task: new FormControl(''),
     });
+
+
   }
 
   public taskSave(): void {
       console.log(this.tasks.value.task);
   }
+
+   public atualizarTask(event: MatCheckboxChange): void {
+
+    console.log('teste', event.checked);
+   }
 
 }

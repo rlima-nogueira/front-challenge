@@ -97,6 +97,7 @@ export class TaskListComponent implements OnInit {
 
   public isValid(): boolean {
     if (this.isInputInvalidCharacter) {
+      alert(' Remova os caracteres especiais!');
       return true;
     }
     if (this.tasks.value.task === '' || this.tasks.value.task === null) {

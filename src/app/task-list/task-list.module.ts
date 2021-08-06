@@ -9,6 +9,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -24,10 +25,11 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatListModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [
-
+    HttpClientModule
   ],
   bootstrap: [TaskListComponent],
   exports: [TaskListComponent]

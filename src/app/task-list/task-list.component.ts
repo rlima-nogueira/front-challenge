@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Task } from './task-list';
+import { TaskListService } from './task-list.service';
+
 
 @Component({
   selector: 'app-task-list',
@@ -13,33 +16,29 @@ export class TaskListComponent implements OnInit {
     checkBoxTask: new FormArray([]),
     task: new FormControl(''),
   });
-  public taskList: Array<object>;
+  public taskList: Task;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private service: TaskListService,
   ) { }
 
   public ngOnInit(): void {
-
-    this.taskList = [
-      {
-        "id": 1,
-        "name": "Task 1",
-        "done": false
-      },
-      {
-        "id": 2,
-        "name": "Task 2",
-        "done": true
-      },
-    ]
-
     this.tasks = this.formBuilder.group({
       checkBoxTask: new FormControl(''),
       task: new FormControl(''),
     });
 
+    this.handleTaskSearch();
+  }
 
+  public async handleTaskSearch(): Promise<void> {
+
+    (await this.service.searchTask()).subscribe((tasks) => {
+      Object.entries(tasks).forEach(([key, value]) => {
+        this.taskList = value;
+      });
+    });
   }
 
   public taskSave(): void {

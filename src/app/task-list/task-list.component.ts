@@ -22,6 +22,8 @@ export class TaskListComponent implements OnInit {
     faTrashAlt,
   };
 
+  private format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
   constructor(
     private formBuilder: FormBuilder,
     private service: TaskListService,
@@ -49,6 +51,11 @@ export class TaskListComponent implements OnInit {
   }
 
   public async handleTaskSave(): Promise<void> {
+    if (this.format.test(this.tasks.value.task)) {
+      alert('Por favor, Remova os caracteres especiais.');
+      return;
+    }
+
     const task: Task = {
       item: this.tasks.value.task,
       done: false

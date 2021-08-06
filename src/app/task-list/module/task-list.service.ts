@@ -1,4 +1,4 @@
-import { Task } from './task-list';
+import { Task } from '../model/task-list';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';

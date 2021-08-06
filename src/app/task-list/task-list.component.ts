@@ -2,8 +2,8 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, RequiredValidator, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { Task } from './task-list';
-import { TaskListService } from './task-list.service';
+import { Task } from './model/task-list';
+import { TaskListService } from './module/task-list.service';
 
 @Component({
   selector: 'app-task-list',

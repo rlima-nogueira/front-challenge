@@ -13,16 +13,20 @@
               </mat-form-field>
               <button mat-raised-button color="primary" (click)="taskSave()">Adicionar</button>
             </div>
-
-            <mat-list-item *ngFor="let task of taskList">
-              <mat-checkbox
-                [FormControlName] = "checkBoxTask"
-                [checked]="task.done"
-                (change)="$event ? atualizarTask($event) : task.done"
-                >
-                {{ task.item }}
-              </mat-checkbox>
-            </mat-list-item>
+            <mat-list-item *ngFor="let task of taskList" >
+                <div class="items-icon">
+                  <mat-checkbox
+                    [FormControlName] = "checkBoxTask"
+                    [checked]="task.done"
+                    (change)="$event ? atualizarTask($event) : task.done"
+                    >
+                    {{ task.item }}
+                  </mat-checkbox>
+                  <a>
+                    <fa-icon [icon]="icones.faTrash"> </fa-icon>
+                  </a>
+                </div>
+              </mat-list-item>
           </div>
         </mat-card-content>
       </form>

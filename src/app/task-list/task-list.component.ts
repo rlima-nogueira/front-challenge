@@ -1,3 +1,4 @@
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -18,22 +19,29 @@ export class TaskListComponent implements OnInit {
   });
   public taskList: Task;
 
+  public icones = {
+    faTrash,
+  };
+
   constructor(
     private formBuilder: FormBuilder,
     private service: TaskListService,
   ) { }
 
   public ngOnInit(): void {
-    this.tasks = this.formBuilder.group({
-      checkBoxTask: new FormControl(''),
-      task: new FormControl(''),
-    });
+    this.loadForm();
 
     this.handleTaskSearch();
   }
 
-  public async handleTaskSearch(): Promise<void> {
+  private loadForm(): void {
+    this.tasks = this.formBuilder.group({
+      checkBoxTask: new FormControl(''),
+      task: new FormControl(''),
+    });
+  }
 
+  private async handleTaskSearch(): Promise<void> {
     (await this.service.searchTask()).subscribe((tasks) => {
       Object.entries(tasks).forEach(([key, value]) => {
         this.taskList = value;

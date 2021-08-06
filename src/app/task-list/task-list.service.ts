@@ -19,4 +19,8 @@ export class TaskListService {
     return this.http.get<Array<Task>>(`${this.URL_API}`);
   }
 
+  public async saveTask(task: Task): Promise<Observable<Array<Task>>> {
+    return this.http.post<Array<Task>>(`${this.URL_API}`, task);
+  }
+
 }

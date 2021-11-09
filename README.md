@@ -21,5 +21,3 @@
 
 <p>A aplicação irá abrir no seguinte endereço: http://localhost/index.html</p>
 
-
-Link para a aplicação: https://task-list-challenge.vercel.app/
